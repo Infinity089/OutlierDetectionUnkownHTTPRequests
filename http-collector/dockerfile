@@ -1,0 +1,19 @@
+# Use the official Python image as a base image
+FROM python:3.8
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy the current directory contents into the container at /app
+COPY app/requirements.txt /app/
+COPY app/app_running.py /app/
+COPY app/generate_self_signed_cert.py /app/
+
+# Install any dependencies specified in requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Expose the necessary ports
+EXPOSE 80 8080 8000 443 8443 8444 8445
+
+# Command to run your application
+CMD ["python", "app_running.py"]
